@@ -5,7 +5,7 @@ import com.javarush.baliuk.islandofanimals.exceptions.NoSuchAnnotationException;
 
 import java.util.Objects;
 
-@PresetData(weight = 50, maxSatiety = 0, maxAreaPopulation = 200)
+@PresetData(weight = 1, maxAreaPopulation = 200)
 public class Plant {
 
     public Plant create() {

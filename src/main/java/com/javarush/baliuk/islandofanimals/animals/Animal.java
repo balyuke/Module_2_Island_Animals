@@ -53,7 +53,8 @@ public abstract class Animal {
 
     // животные начинают есть
     public void eat(List<?> objects, Area area) {
-
+        area.getLock().lock();
+        try {
             if (!objects.isEmpty()) {
                 // если передали животное
                 if (objects.get(0) instanceof Animal) {
@@ -63,11 +64,16 @@ public abstract class Animal {
                     eatPlant((List<Plant>) objects);
                 }
             }
+        } finally {
+            area.getLock().unlock();
+        }
     }
 
     // перемещение животного из одной локации в соседние
     // в новую локацию загоняем this.животное
     public boolean move(Area currentArea, Area[][] areas) {
+        currentArea.getLock().lock();
+        try {
             Area newArea = null;
             int tries = 0;
             while (tries < 4) {
@@ -84,11 +90,19 @@ public abstract class Animal {
             } else {
                 return false;
             }
+        } finally {
+            currentArea.getLock().unlock();
+        }
     }
 
     public boolean die(Area area) {
+        area.getLock().lock();
+        try {
             this.setSatiety(Math.max(0, this.getSatiety() - this.getMaxSatiety() / 10));
             return this.getSatiety() == 0;
+        } finally {
+            area.getLock().unlock();
+        }
     }
 
     @Override

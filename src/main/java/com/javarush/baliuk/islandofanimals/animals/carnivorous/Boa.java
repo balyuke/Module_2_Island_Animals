@@ -7,9 +7,14 @@ import com.javarush.baliuk.islandofanimals.animals.herbivorous.*;
 import java.util.Map;
 
 @PresetData(weight = 15, maxSatiety = 3, maxAreaPopulation = 30, speed = 1)
-public class Anaconda extends Carnivorous {
+public class Boa extends Carnivorous {
     private static final Map<Class<? extends Animal>, Integer> CHANCE_TO_EAT =
-            Map.of(Fox.class, 15, Rabbit.class, 20, Mouse.class, 40, Duck.class, 10);
+            Map.of(
+                      Fox.class, 15
+                    , Rabbit.class, 20
+                    , Mouse.class, 40
+                    , Duck.class, 10
+            );
 
     @Override
     public Map<Class<? extends Animal>, Integer> getChanceToEat() {
@@ -18,6 +23,6 @@ public class Anaconda extends Carnivorous {
 
     @Override
     public String toString() {
-        return "Anaconda";
+        return "Boa";
     }
 }

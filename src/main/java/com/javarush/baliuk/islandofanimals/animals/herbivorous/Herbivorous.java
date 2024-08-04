@@ -10,7 +10,8 @@ public abstract class Herbivorous extends Animal {
 
     @Override
     public boolean reproduce(Area area) {
-
+        area.getLock().lock();
+        try {
             List<Herbivorous> herbivorousFemales = area.getHerbivorous().stream().filter(herbivorous ->
                     herbivorous.getGender() == Gender.FEMALE && !herbivorous.isReproduce()).toList();
             if (herbivorousFemales.isEmpty()) {
@@ -27,5 +28,8 @@ public abstract class Herbivorous extends Animal {
                 }
             }
             return false;
+        } finally {
+            area.getLock().unlock();
+        }
     }
 }

@@ -12,7 +12,7 @@ public @interface PresetData {
     double weight();
 
     // Сколько килограммов пищи нужно животному для полного насыщения
-    double maxSatiety();
+    double maxSatiety() default 0;
 
     // Максимальное количество животных этого вида на одной клетке
     int maxAreaPopulation();

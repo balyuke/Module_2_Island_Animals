@@ -2,7 +2,7 @@ package com.javarush.baliuk.islandofanimals.animals;
 
 // Виды животных
 public enum AnimalSpecies {
-    ANACONDA,
+    BOA,
     BEAR,
     BOAR,
     BUFFALO,

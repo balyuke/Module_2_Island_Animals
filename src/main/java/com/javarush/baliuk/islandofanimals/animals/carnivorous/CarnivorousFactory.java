@@ -9,7 +9,7 @@ public class CarnivorousFactory implements AnimalFactory {
         Carnivorous carnivorous;
         switch (species) {
             case BEAR -> carnivorous = new Bear();
-            case ANACONDA -> carnivorous = new Anaconda();
+            case BOA -> carnivorous = new Boa();
             case EAGLE -> carnivorous = new Eagle();
             case FOX -> carnivorous = new Fox();
             case WOLF -> carnivorous = new Wolf();

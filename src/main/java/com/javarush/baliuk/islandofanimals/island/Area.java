@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @SuppressWarnings("unchecked")
 public class Area {
@@ -22,6 +24,8 @@ public class Area {
     private final List<Carnivorous> carnivorous;    // массив хищников
     private final List<Herbivorous> herbivorous;    // массив травоядных
     private final List<Plant> plants;               // растения
+
+    private final Lock lock = new ReentrantLock(true);  // блокировка доступа к локации
 
     public Area(Position position) {
         this.position = position;
@@ -136,5 +140,25 @@ public class Area {
         }
         return plants;
     }
+
+
+    public Lock getLock() {
+        return lock;
+    }
+
+
+
+    public void grow() {
+        int currentPlantsPopulation = getPlants().size();
+        int maxPopulation = getMaxAreaPopulation(Plant.class);
+        int localPlantsPopulation = getRandomPopulation(maxPopulation);
+        if (currentPlantsPopulation + localPlantsPopulation > maxPopulation) {
+            localPlantsPopulation = maxPopulation - currentPlantsPopulation;
+        }
+        for (int i = 0; i < localPlantsPopulation; i++) {
+            getPlants().add(new Plant());
+        }
+    }
+
 }
 
