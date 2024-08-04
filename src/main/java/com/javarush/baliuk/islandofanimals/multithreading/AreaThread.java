@@ -14,9 +14,9 @@ public class AreaThread implements Runnable {
 
     @Override
     public void run() {
-        area.eat();
-        area.reproduce();
-        area.move(island.getAreas());
-        area.die();
+        area.eat();         // 1
+        area.reproduce();   // 2
+        area.move(island.getAreas());   // 3
+        area.die();         // 4
     }
 }
