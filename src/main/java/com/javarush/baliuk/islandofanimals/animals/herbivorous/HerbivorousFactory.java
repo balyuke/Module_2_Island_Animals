@@ -1,11 +1,11 @@
 package com.javarush.baliuk.islandofanimals.animals.herbivorous;
 
 import com.javarush.baliuk.islandofanimals.animals.AnimalFactory;
-import com.javarush.baliuk.islandofanimals.animals.AnimalSpecies;
+import com.javarush.baliuk.islandofanimals.animals.Species;
 
 public class HerbivorousFactory implements AnimalFactory {
     @Override
-    public Herbivorous createAnimal(AnimalSpecies species) {
+    public Herbivorous createAnimal(Species species) {
         Herbivorous herbivorous;
         switch (species) {
             case BOAR -> herbivorous = new Boar();

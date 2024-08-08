@@ -2,7 +2,7 @@ package com.javarush.baliuk.islandofanimals.island;
 
 import com.javarush.baliuk.islandofanimals.animals.Animal;
 import com.javarush.baliuk.islandofanimals.animals.AnimalFactory;
-import com.javarush.baliuk.islandofanimals.animals.AnimalSpecies;
+import com.javarush.baliuk.islandofanimals.animals.Species;
 import com.javarush.baliuk.islandofanimals.animals.PresetData;
 import com.javarush.baliuk.islandofanimals.animals.carnivorous.Carnivorous;
 import com.javarush.baliuk.islandofanimals.animals.carnivorous.CarnivorousFactory;
@@ -118,8 +118,8 @@ public class Area {
 
     private List<? extends Animal> createAnimals(AnimalFactory factory) {
         List<Animal> animals = new ArrayList<>();
-        AnimalSpecies[] animalSpecies = AnimalSpecies.values();
-        for (AnimalSpecies animalType : animalSpecies) {
+        Species[] species = Species.values();
+        for (Species animalType : species) {
             Animal animal = factory.createAnimal(animalType);
             if (animal == null) {
                 continue;

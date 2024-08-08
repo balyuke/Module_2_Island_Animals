@@ -1,7 +1,7 @@
 package com.javarush.baliuk.islandofanimals.animals;
 
 // Виды животных
-public enum AnimalSpecies {
+public enum Species {
     BOA,
     BEAR,
     BOAR,
