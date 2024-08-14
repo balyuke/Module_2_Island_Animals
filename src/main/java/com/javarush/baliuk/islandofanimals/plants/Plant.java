@@ -2,11 +2,15 @@ package com.javarush.baliuk.islandofanimals.plants;
 
 import com.javarush.baliuk.islandofanimals.animals.PresetData;
 import com.javarush.baliuk.islandofanimals.exceptions.NoSuchAnnotationException;
+import com.javarush.baliuk.islandofanimals.island.Area;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
 @PresetData(weight = 1, maxAreaPopulation = 200)
 public class Plant {
+    private static final Logger LOG = LoggerFactory.getLogger(Plant.class);
 
     public Plant create() {
         return new Plant();
@@ -35,6 +39,7 @@ public class Plant {
 
     private PresetData getPresetData() {
         if (!this.getClass().isAnnotationPresent(PresetData.class)) {
+            LOG.error("No such annotation {} for {}", PresetData.class, this.getClass().getName());
             throw new NoSuchAnnotationException("No such annotation " + PresetData.class + " for " + this.getClass().getName());
         }
         return this.getClass().getAnnotation(PresetData.class);

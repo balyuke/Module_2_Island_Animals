@@ -1,16 +1,26 @@
 package com.javarush.baliuk.islandofanimals.island;
 
+import java.util.Arrays;
+
 public class Island {
     private final int length;       // длина острова
     private final int width;        // ширина острова
     private final Area[][] areas;   // матрица локаций острова
 
+    @Override
+    public String toString() {
+        return "Island created with " +
+                "length=" + length +
+                ", width=" + width;
+        //System.out.println("***********************************************");
+    }
+
     public Island(int length, int width) {
         this.length = length;
         this.width = width;
         this.areas = new Area[length][width];
-        System.out.println("Island created with length = " + length + " and width = " + width);
-        System.out.println("***********************************************");
+//        System.out.println("Island created with length = " + length + " and width = " + width);
+//        System.out.println("***********************************************");
     }
 
     public Area[][] getAreas() {

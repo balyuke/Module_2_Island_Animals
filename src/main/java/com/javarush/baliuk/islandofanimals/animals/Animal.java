@@ -6,6 +6,8 @@ import com.javarush.baliuk.islandofanimals.exceptions.NoSuchAnnotationException;
 import com.javarush.baliuk.islandofanimals.island.Direction;
 import com.javarush.baliuk.islandofanimals.island.Area;
 import com.javarush.baliuk.islandofanimals.plants.Plant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -14,6 +16,8 @@ import static com.javarush.baliuk.islandofanimals.island.Direction.*;
 
 @SuppressWarnings("unchecked")
 public abstract class Animal {
+    private static final Logger LOG = LoggerFactory.getLogger(Animal.class);
+
     private double satiety;         // насыщение, используется в методе умирать - от голода
     private Gender gender;          // пол
     private boolean isReproduce;    // воспроизводит, используется в абстрактных классах Herbivorous и Carnivorous
@@ -155,6 +159,7 @@ public abstract class Animal {
     //
     private PresetData getPresetData() {
         if (!this.getClass().isAnnotationPresent(PresetData.class)) {
+            LOG.error("No such annotation {} for {}", PresetData.class, this.getClass().getName());
             throw new NoSuchAnnotationException("No such annotation " + PresetData.class + " for " + this.getClass().getName());
         }
         return this.getClass().getAnnotation(PresetData.class);

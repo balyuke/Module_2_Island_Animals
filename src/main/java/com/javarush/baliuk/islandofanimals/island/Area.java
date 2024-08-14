@@ -10,6 +10,8 @@ import com.javarush.baliuk.islandofanimals.animals.herbivorous.Herbivorous;
 import com.javarush.baliuk.islandofanimals.animals.herbivorous.HerbivorousFactory;
 import com.javarush.baliuk.islandofanimals.exceptions.NoSuchAnnotationException;
 import com.javarush.baliuk.islandofanimals.plants.Plant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +22,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @SuppressWarnings("unchecked")
 public class Area {
+    private static final Logger LOG = LoggerFactory.getLogger(Area.class);
+
     private final Position position;                // координаты
     private final List<Carnivorous> carnivorous;    // массив хищников
     private final List<Herbivorous> herbivorous;    // массив травоядных
@@ -106,6 +110,7 @@ public class Area {
 
     public int getMaxAreaPopulation(Class<?> clazz) {
         if (!clazz.isAnnotationPresent(PresetData.class)) {
+            LOG.error("No such annotation {} for {}", PresetData.class, clazz.getName());
             throw new NoSuchAnnotationException("No such annotation " + PresetData.class + " for " + clazz.getName());
         }
         PresetData presetData = clazz.getAnnotation(PresetData.class);
