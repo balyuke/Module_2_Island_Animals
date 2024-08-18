@@ -1,7 +1,7 @@
 package com.javarush.baliuk.islandofanimals.animals.carnivorous;
 
 import com.javarush.baliuk.islandofanimals.animals.Animal;
-import com.javarush.baliuk.islandofanimals.animals.PresetData;
+import com.javarush.baliuk.islandofanimals.settings.PresetData;
 import com.javarush.baliuk.islandofanimals.animals.herbivorous.*;
 
 import java.util.Map;

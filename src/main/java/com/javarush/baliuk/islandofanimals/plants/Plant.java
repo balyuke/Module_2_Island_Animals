@@ -1,8 +1,7 @@
 package com.javarush.baliuk.islandofanimals.plants;
 
-import com.javarush.baliuk.islandofanimals.animals.PresetData;
+import com.javarush.baliuk.islandofanimals.settings.PresetData;
 import com.javarush.baliuk.islandofanimals.exceptions.NoSuchAnnotationException;
-import com.javarush.baliuk.islandofanimals.island.Area;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

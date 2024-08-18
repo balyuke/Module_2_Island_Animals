@@ -6,6 +6,8 @@ import com.javarush.baliuk.islandofanimals.exceptions.NoSuchAnnotationException;
 import com.javarush.baliuk.islandofanimals.island.Direction;
 import com.javarush.baliuk.islandofanimals.island.Area;
 import com.javarush.baliuk.islandofanimals.plants.Plant;
+import com.javarush.baliuk.islandofanimals.settings.PresetData;
+import com.javarush.baliuk.islandofanimals.utils.RandomEnumGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +26,9 @@ public abstract class Animal {
 
     protected Animal() {
         this.satiety = getMaxSatiety() / 2;
-        this.gender = getRandomGender();
+        RandomEnumGenerator reg = new RandomEnumGenerator(Gender.class);
+        this.gender = (Gender) reg.randomEnum();;
+        //this.gender = getRandomGender();
         this.isReproduce = false;
     }
 
@@ -73,7 +77,7 @@ public abstract class Animal {
         }
     }
 
-    // перемещение животного из одной локации в соседние
+    // перемещение животного из одной локации в соседнюю, если возможно
     // в новую локацию загоняем this.животное
     public boolean move(Area currentArea, Area[][] areas) {
         currentArea.getLock().lock();
@@ -99,6 +103,7 @@ public abstract class Animal {
         }
     }
 
+    // на каждой итерации у животного отнимается 10% сытости
     public boolean die(Area area) {
         area.getLock().lock();
         try {
@@ -120,9 +125,10 @@ public abstract class Animal {
         return Objects.hash(getSatiety());
     }
 
-    protected Gender getRandomGender() {
-        return Gender.values()[ThreadLocalRandom.current().nextInt(Gender.values().length)];
-    }
+//    // возвращаем рандомно пол животного
+//    protected Gender getRandomGender() {
+//        return Gender.values()[ThreadLocalRandom.current().nextInt(Gender.values().length)];
+//    }
 
     // считываем значение MaxSatiety() для соответствующего животного
     protected double getMaxSatiety() {
@@ -171,7 +177,9 @@ public abstract class Animal {
         int previousPositionY = currentArea.getPosition().getY();
         int islandLength = areas.length;
         int islandWidth = areas[0].length;
-        Direction direction = getDirectionToMove();
+        RandomEnumGenerator reg = new RandomEnumGenerator(Direction.class);
+        Direction direction = (Direction) reg.randomEnum();
+        //Direction direction = getDirectionToMove();
         int steps = getDistance(direction, islandLength, islandWidth);
         int newPositionX = getNewPositionX(direction, previousPositionX, steps);
         int newPositionY = getNewPositionY(direction, previousPositionY, steps);
@@ -224,10 +232,10 @@ public abstract class Animal {
         return nextPositionX <= islandLength - 1 && nextPositionY <= islandWidth - 1 && nextPositionX >= 0 && nextPositionY >= 0;
     }
 
-    // возвращаем рандомно направление движения
-    private Direction getDirectionToMove() {
-        return Direction.values()[ThreadLocalRandom.current().nextInt(Direction.values().length)];
-    }
+//    // возвращаем рандомно направление движения
+//    private Direction getDirectionToMove() {
+//        return Direction.values()[ThreadLocalRandom.current().nextInt(Direction.values().length)];
+//    }
 
     private int getDistance(Direction direction, int islandLength, int islandWidth) {
         int steps = 0;

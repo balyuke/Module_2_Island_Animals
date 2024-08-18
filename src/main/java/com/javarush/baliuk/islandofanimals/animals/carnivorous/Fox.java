@@ -1,7 +1,7 @@
 package com.javarush.baliuk.islandofanimals.animals.carnivorous;
 
 import com.javarush.baliuk.islandofanimals.animals.Animal;
-import com.javarush.baliuk.islandofanimals.animals.PresetData;
+import com.javarush.baliuk.islandofanimals.settings.PresetData;
 import com.javarush.baliuk.islandofanimals.animals.herbivorous.*;
 
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
 public class Fox extends Carnivorous {
     private static final Map<Class<? extends Animal>, Integer> CHANCE_TO_EAT =
             Map.of(
-                    Rabbit.class, 70
+                      Rabbit.class, 70
                     , Mouse.class, 90
                     , Duck.class, 60
                     , Caterpillar.class, 40

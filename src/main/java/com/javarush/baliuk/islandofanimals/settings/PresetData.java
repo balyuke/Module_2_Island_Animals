@@ -1,4 +1,4 @@
-package com.javarush.baliuk.islandofanimals.animals;
+package com.javarush.baliuk.islandofanimals.settings;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+// Предустановки
 public @interface PresetData {
     // Вес одного животного, кг
     double weight();

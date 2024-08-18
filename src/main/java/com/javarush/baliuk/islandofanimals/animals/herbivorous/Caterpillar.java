@@ -1,6 +1,6 @@
 package com.javarush.baliuk.islandofanimals.animals.herbivorous;
 
-import com.javarush.baliuk.islandofanimals.animals.PresetData;
+import com.javarush.baliuk.islandofanimals.settings.PresetData;
 import com.javarush.baliuk.islandofanimals.island.Area;
 
 @PresetData(weight = 0.01, maxSatiety = 0, maxAreaPopulation = 1000)

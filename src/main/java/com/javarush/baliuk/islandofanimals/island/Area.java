@@ -3,7 +3,7 @@ package com.javarush.baliuk.islandofanimals.island;
 import com.javarush.baliuk.islandofanimals.animals.Animal;
 import com.javarush.baliuk.islandofanimals.animals.AnimalFactory;
 import com.javarush.baliuk.islandofanimals.animals.Species;
-import com.javarush.baliuk.islandofanimals.animals.PresetData;
+import com.javarush.baliuk.islandofanimals.settings.PresetData;
 import com.javarush.baliuk.islandofanimals.animals.carnivorous.Carnivorous;
 import com.javarush.baliuk.islandofanimals.animals.carnivorous.CarnivorousFactory;
 import com.javarush.baliuk.islandofanimals.animals.herbivorous.Herbivorous;
@@ -21,6 +21,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 @SuppressWarnings("unchecked")
+// класс Локация острова
 public class Area {
     private static final Logger LOG = LoggerFactory.getLogger(Area.class);
 
@@ -35,6 +36,8 @@ public class Area {
         this.position = position;
         carnivorous = (List<Carnivorous>) createAnimals(new CarnivorousFactory());
         herbivorous = (List<Herbivorous>) createAnimals(new HerbivorousFactory());
+        //carnivorous = (List<Carnivorous>) createCarnivorous(new Carnivorous());
+        //herbivorous = (List<Herbivorous>) createHerbivorous(new Herbivorous());
         plants = createPlants();
         Collections.shuffle(carnivorous);
         Collections.shuffle(herbivorous);
@@ -136,7 +139,39 @@ public class Area {
         }
         return animals;
     }
+/*
+    private List<? extends Animal> createCarnivorous(Carnivorous factory) {
+        List<Carnivorous> animals = new ArrayList<>();
+        Species[] species = Species.values();
+        for (Species animalType : species) {
+            Carnivorous animal = factory.createAnimal(animalType);
+            if (animal == null) {
+                continue;
+            }
+            int animalCount = getRandomPopulation(getMaxAreaPopulation(animal.getClass()));
+            for (int i = 0; i < animalCount; i++) {
+                animals.add(factory.createAnimal(animalType));
+            }
+        }
+        return animals;
+    }
 
+    private List<? extends Animal> createHerbivorous(Herbivorous factory) {
+        List<Herbivorous> animals = new ArrayList<>();
+        Species[] species = Species.values();
+        for (Species animalType : species) {
+            Herbivorous animal = factory.createAnimal(animalType);
+            if (animal == null) {
+                continue;
+            }
+            int animalCount = getRandomPopulation(getMaxAreaPopulation(animal.getClass()));
+            for (int i = 0; i < animalCount; i++) {
+                animals.add(factory.createAnimal(animalType));
+            }
+        }
+        return animals;
+    }
+*/
     private List<Plant> createPlants() {
         List<Plant> plants = new ArrayList<>();
         int plantCount = getRandomPopulation(getMaxAreaPopulation(Plant.class));

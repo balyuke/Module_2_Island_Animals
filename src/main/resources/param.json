@@ -1,50 +1,71 @@
 {
+  "Island": {
+    "length": 10,
+    "width": 20
+  },
+
   "Bear": {
-    "name_rus": "Медведь"
+    "name_rus": "Медведь",
+    "icon": "\uD83D\uDC3B"
   },
   "Boa": {
-    "name_rus": "Удав"
+    "name_rus": "Удав",
+    "icon": "\uD83D\uDC0D"
   },
   "Eagle": {
-    "name_rus": "Орел"
+    "name_rus": "Орел",
+    "icon": "\uD83E\uDD85"
   },
   "Fox": {
-    "name_rus": "Лиса"
+    "name_rus": "Лиса",
+    "icon": "\uD83E\uDD8A"
   },
   "Woolf": {
-    "name_rus": "Волк"
+    "name_rus": "Волк",
+    "icon": "\uD83D\uDC3A"
   },
   "Boar": {
-    "name_rus": "Кабан"
+    "name_rus": "Кабан",
+    "icon": "\uD83D\uDC17"
   },
   "Buffalo": {
-    "name_rus": "Буйвол"
+    "name_rus": "Буйвол",
+    "icon": "\uD83D\uDC03"
   },
   "Caterpillar": {
-    "name_rus": "Гусеница"
-  },
-  "Duck": {
-    "name_rus": "Утка"
+    "name_rus": "Гусеница",
+    "icon": "\uD83D\uDC1B"
   },
   "Deer": {
-    "name_rus": "Олень"
+    "name_rus": "Олень",
+    "icon": "\uD83E\uDD8C"
+  },
+  "Duck": {
+    "name_rus": "Утка",
+    "icon": "\uD83E\uDD86"
   },
   "Goat": {
-    "name_rus": "Коза"
+    "name_rus": "Коза",
+    "icon": "\uD83D\uDC10"
   },
   "Horse": {
-    "name_rus": "Лошадь"
+    "name_rus": "Лошадь",
+    "icon": "\uD83D\uDC0E"
   },
   "Mouse": {
-    "name_rus": "Мышь"
+    "name_rus": "Мышь",
+    "icon": "\uD83D\uDC01"
   },
   "Rabbit": {
-    "name_rus": "Кролик"
+    "name_rus": "Кролик",
+    "icon": "\uD83D\uDC07"
   },
   "Sheep": {
-    "name_rus": "Овца"
+    "name_rus": "Овца",
+    "icon": "\uD83D\uDC11"
   },
   "Plant": {
-    "name_rus": "Растения"
+    "name_rus": "Растения",
+    "icon": "\uD83C\uDF3F"
   }
 }

@@ -2,6 +2,7 @@ package com.javarush.baliuk.islandofanimals.island;
 
 import java.util.Arrays;
 
+// класс Остров
 public class Island {
     private final int length;       // длина острова
     private final int width;        // ширина острова
@@ -9,18 +10,13 @@ public class Island {
 
     @Override
     public String toString() {
-        return "Island created with " +
-                "length=" + length +
-                ", width=" + width;
-        //System.out.println("***********************************************");
+        return String.format("Island created with length = %s, width = %s", length, width);
     }
 
     public Island(int length, int width) {
         this.length = length;
         this.width = width;
         this.areas = new Area[length][width];
-//        System.out.println("Island created with length = " + length + " and width = " + width);
-//        System.out.println("***********************************************");
     }
 
     public Area[][] getAreas() {
@@ -35,7 +31,7 @@ public class Island {
         }
     }
 
-    // популяция хищников
+    // Количесвто\популяция хищников
     public int getCarnivorousPopulation() {
         int number = 0;
         for (int i = 0; i < length; i++) {

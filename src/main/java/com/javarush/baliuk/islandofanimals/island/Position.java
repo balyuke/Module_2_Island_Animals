@@ -1,6 +1,6 @@
 package com.javarush.baliuk.islandofanimals.island;
 
-// координаты локации (Area)
+// класс Координаты локации (Area)
 public class Position {
     private final int x;
     private final int y;
