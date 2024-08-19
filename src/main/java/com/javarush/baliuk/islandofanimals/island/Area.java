@@ -8,6 +8,7 @@ import com.javarush.baliuk.islandofanimals.animals.carnivorous.Carnivorous;
 import com.javarush.baliuk.islandofanimals.animals.carnivorous.CarnivorousFactory;
 import com.javarush.baliuk.islandofanimals.animals.herbivorous.Herbivorous;
 import com.javarush.baliuk.islandofanimals.animals.herbivorous.HerbivorousFactory;
+
 import com.javarush.baliuk.islandofanimals.exceptions.NoSuchAnnotationException;
 import com.javarush.baliuk.islandofanimals.plants.Plant;
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class Area {
     private static final Logger LOG = LoggerFactory.getLogger(Area.class);
 
     private final Position position;                // координаты
-    private final List<Carnivorous> carnivorous;    // массив хищников
+    private final List<Carnivorous> carnivorous;    // массив плотоядных
     private final List<Herbivorous> herbivorous;    // массив травоядных
     private final List<Plant> plants;               // растения
 

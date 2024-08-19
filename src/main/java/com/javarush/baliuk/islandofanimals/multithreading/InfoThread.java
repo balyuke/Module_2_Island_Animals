@@ -20,12 +20,16 @@ public class InfoThread implements Runnable, AutoCloseable  {
 
     private final Island island;
     private final Area[][] areas;
-    private int iteration;
+    private int currentIteration;
+
+    public int getCurrentIteration() {
+        return currentIteration;
+    }
 
     public InfoThread(Island island, int iteration) {
         this.island = island;
         this.areas = island.getAreas();
-        this.iteration = iteration;
+        this.currentIteration = iteration;
         printStartGame(island);
     }
 
@@ -39,8 +43,8 @@ public class InfoThread implements Runnable, AutoCloseable  {
     @Override
     public void run() {
         synchronized(lock) {
-            infoStat(this.iteration);
-            this.iteration++;
+            infoStat(this.currentIteration);
+            this.currentIteration++;
         }
     }
 
@@ -93,7 +97,7 @@ public class InfoThread implements Runnable, AutoCloseable  {
 
     public void printEndGame() {
         LOG.info("===============================================");
-        LOG.info("No animals. End of simulation");
+        LOG.info("No animals or iteration limit reached. End of simulation");
     }
 }
 

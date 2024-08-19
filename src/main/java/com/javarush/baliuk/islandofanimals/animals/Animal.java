@@ -40,6 +40,7 @@ public abstract class Animal {
         return isReproduce;
     }
 
+    // добавить животному вес сьденного жрастения
     public void setSatiety(double satiety) {
         this.satiety = satiety;
     }
@@ -48,6 +49,9 @@ public abstract class Animal {
         isReproduce = breed;
     }
 
+    // используется в методах
+    // поедание животных: void eatAnimal(List<? extends Animal> animals)
+    // поедание растений: void void eatPlant(List<Plant> plants)
     public double getSatiety() {
         return this.satiety;
     }
@@ -55,6 +59,7 @@ public abstract class Animal {
     public abstract boolean reproduce(Area area);
 
     // используется в eatAnimal()
+    // метод переопределяется в классах тех животных, которые способны есть других животных
     public Map<Class<? extends Animal>, Integer> getChanceToEat() {
         return Collections.emptyMap();
     }
@@ -126,9 +131,7 @@ public abstract class Animal {
     }
 
 //    // возвращаем рандомно пол животного
-//    protected Gender getRandomGender() {
-//        return Gender.values()[ThreadLocalRandom.current().nextInt(Gender.values().length)];
-//    }
+//    protected Gender getRandomGender() { return Gender.values()[ThreadLocalRandom.current().nextInt(Gender.values().length)]; }
 
     // считываем значение MaxSatiety() для соответствующего животного
     protected double getMaxSatiety() {
@@ -233,9 +236,7 @@ public abstract class Animal {
     }
 
 //    // возвращаем рандомно направление движения
-//    private Direction getDirectionToMove() {
-//        return Direction.values()[ThreadLocalRandom.current().nextInt(Direction.values().length)];
-//    }
+//    private Direction getDirectionToMove() { return Direction.values()[ThreadLocalRandom.current().nextInt(Direction.values().length)]; }
 
     private int getDistance(Direction direction, int islandLength, int islandWidth) {
         int steps = 0;

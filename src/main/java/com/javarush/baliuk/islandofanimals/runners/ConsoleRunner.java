@@ -26,11 +26,9 @@ public class ConsoleRunner {
         island.init();
         areas = island.getAreas();
 
-        int iteration = 1;
-
         AreaThread[][] areaThreads = new AreaThread[LENGTH][WIDTH];
         PlantThread[][] plantThreads = new PlantThread[LENGTH][WIDTH];
-        InfoThread infoThread = new InfoThread(island, iteration);
+        InfoThread infoThread = new InfoThread(island, ITERATION);
 
         for (int i = 0; i < areas.length; i++) {
             for (int j = 0; j < areas[i].length; j++) {
@@ -60,7 +58,7 @@ public class ConsoleRunner {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
             }
-            if (island.getAnimalsPopulation() == 0) {
+            if (island.getAnimalsPopulation() == 0 || infoThread.getCurrentIteration() > MAX_ITERATION) {
                 infoThread.printEndGame();
                 break;
             }
@@ -69,46 +67,4 @@ public class ConsoleRunner {
 
     }
 
-//    private static void infoStat(int iteration) {
-//        int plantCount = 0;
-//        for (int i = 0; i < areas.length; i++) {
-//            for (int j = 0; j < areas[i].length; j++) {
-//                Area area = areas[i][j];
-//                LOG.trace("Area [{}, {}]", area.getPosition().getX() + 1, area.getPosition().getY() + 1);
-//                LOG.trace(" - Carnivorous:");
-//                printCountCarnivorous(area);
-//                LOG.trace(" - Herbivorous:");
-//                printCountHerbivorous(area);
-//                plantCount = plantCount + area.getPlants().size();
-//                LOG.trace(" - Plants : {}", area.getPlants().size());
-//            }
-//        }
-//        LOG.info("Plants in total: {}", plantCount);
-//        LOG.info("Carnivorous population: {}", island.getCarnivorousPopulation());
-//        LOG.info("Herbivorous population: {}", island.getHerbivorousPopulation());
-//        LOG.info("Animals in total: {}", island.getAnimalsPopulation());
-//        LOG.info("Iteration={}", iteration);
-//        LOG.info("***********************************************");
-//        //return plantCount;
-//    }
-//
-//    private void printCountHerbivorous(Area area) {
-//        for (Species species : Species.values()) {
-//            List<Herbivorous> herbivorous = new ArrayList<>(area.getHerbivorous());
-//            int herbivorousNumber = (int) herbivorous.stream().filter(h -> h.toString().equalsIgnoreCase(species.toString())).count();
-//            if (herbivorousNumber > 0) {
-//                LOG.trace("   - {} : {}", species, herbivorousNumber);
-//            }
-//        }
-//    }
-//
-//    private void printCountCarnivorous(Area area) {
-//        for (Species species : Species.values()) {
-//            List<Carnivorous> carnivorous = new ArrayList<>(area.getCarnivorous());
-//            int carnivorousNumber = (int) carnivorous.stream().filter(c -> c.toString().equalsIgnoreCase(species.toString())).count();
-//            if (carnivorousNumber > 0) {
-//                LOG.trace("   - {} : {}", species, carnivorousNumber);
-//            }
-//        }
-//    }
 }
