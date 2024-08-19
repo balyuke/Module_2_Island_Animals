@@ -94,38 +94,40 @@ Island of animals
 3.3. Для вывода Статистики InfoThread - метод infoStat()
 
 4) Вывод (статистика)
+   
 4.1. Консольный вывод: каждая ячейка поля выводится в табличной форме с помощью разделителей, в ячейке указано
 максимальное количество существ каждого подвида (растения, хищники, травоядные соответственно),
 в начале идет общая статистика по растениям и животным, а в конце указывается такт\итерация симуляции.
-    ***********************************************
-    Plants in total: 40000
-    Carnivorous population: 1
-    Herbivorous population: 0
-    Animals in total: 1
-    Iteration=38
-    ***********************************************
+
+- Plants in total: 40000
+- Carnivorous population: 1
+- Herbivorous population: 0
+- Animals in total: 1
+- Iteration=38
+  
 4.2. Более развернутая информация по популяции каждого вида животного в разрезе каждой локации пишется в лог-файл;
-    2024-08-17 12:21:01,502 TRACE baliuk.islandofanimals.Main: Area [1, 4]
-    2024-08-17 12:21:01,502 TRACE baliuk.islandofanimals.Main:  - Carnivorous:
-    2024-08-17 12:21:01,502 TRACE baliuk.islandofanimals.Main:    - BEAR : 3
-    2024-08-17 12:21:01,502 TRACE baliuk.islandofanimals.Main:    - BOA : 36
-    2024-08-17 12:21:01,502 TRACE baliuk.islandofanimals.Main:    - EAGLE : 20
-    2024-08-17 12:21:01,502 TRACE baliuk.islandofanimals.Main:    - FOX : 1
-    2024-08-17 12:21:01,502 TRACE baliuk.islandofanimals.Main:    - WOLF : 28
-    2024-08-17 12:21:01,502 TRACE baliuk.islandofanimals.Main:  - Herbivorous:
-    2024-08-17 12:21:01,502 TRACE baliuk.islandofanimals.Main:    - BOAR : 50
-    2024-08-17 12:21:01,502 TRACE baliuk.islandofanimals.Main:    - BUFFALO : 6
-    2024-08-17 12:21:01,503 TRACE baliuk.islandofanimals.Main:    - DEER : 18
-    2024-08-17 12:21:01,503 TRACE baliuk.islandofanimals.Main:    - DUCK : 131
-    2024-08-17 12:21:01,503 TRACE baliuk.islandofanimals.Main:    - GOAT : 87
-    2024-08-17 12:21:01,503 TRACE baliuk.islandofanimals.Main:    - HORSE : 19
-    2024-08-17 12:21:01,503 TRACE baliuk.islandofanimals.Main:    - MOUSE : 257
-    2024-08-17 12:21:01,503 TRACE baliuk.islandofanimals.Main:    - RABBIT : 150
-    2024-08-17 12:21:01,503 TRACE baliuk.islandofanimals.Main:    - SHEEP : 113
-    2024-08-17 12:21:01,503 TRACE baliuk.islandofanimals.Main:  - Plants : 567
+
+- 2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main: Area [1, 4]
+- 2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  - Carnivorous:
+- 2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- BEAR : 3
+- 2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- BOA : 36
+- 2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- EAGLE : 20
+- 2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- FOX : 1
+- 2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- WOLF : 28
+- 2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  - Herbivorous:
+- 2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- BOAR : 50
+- 2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- BUFFALO : 6
+- 2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- DEER : 18
+- 2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- DUCK : 131
+- 2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- GOAT : 87
+- 2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- HORSE : 19
+- 2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- MOUSE : 257
+- 2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- RABBIT : 150
+- 2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:  &emsp;- SHEEP : 113
+- 2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:  - Plants : 567
 
 ## TODO List
 
 - Сделать загрузку конфигурации (размеры острова, константы классов животных) из единого конфигурационного файла params.json с возможностью внесения изменений "на лету" без перекомпиляции классов;
 - Сделать компактный (табличный) вывод через юникоды символов;
--
+- Возможно пересмотреть модель выбора объектов для многопоточного выполнения. Разобраться почему не работают механизмы блокировки getLock().lock() и синхпрнизации synchronized(lock) при их использовании в Thread или Runnable.
