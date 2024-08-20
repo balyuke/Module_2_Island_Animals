@@ -1,5 +1,6 @@
 package com.javarush.baliuk.islandofanimals.animals;
 
+import com.javarush.baliuk.islandofanimals.animals.amphibian.Amphibian;
 import com.javarush.baliuk.islandofanimals.animals.carnivorous.Carnivorous;
 import com.javarush.baliuk.islandofanimals.animals.herbivorous.Herbivorous;
 import com.javarush.baliuk.islandofanimals.exceptions.NoSuchAnnotationException;
@@ -21,16 +22,18 @@ public abstract class Animal {
     private static final Logger LOG = LoggerFactory.getLogger(Animal.class);
 
     private double satiety;         // насыщение, используется в методе умирать - от голода
-    private Gender gender;          // пол
-    private boolean isReproduce;    // воспроизводит, используется в абстрактных классах Herbivorous и Carnivorous
+    private Gender gender;          // пол. При создании Random, при Размножении берем пол "текущей особи"
+    private boolean isReproduce;    // признак учствовало ли животное уже в размножении или нет, используется в абстрактных классах Herbivorous и Carnivorous
 
     protected Animal() {
+        // создаются\рождаются с сытыми в половину от максималки
         this.satiety = getMaxSatiety() / 2;
         RandomEnumGenerator reg = new RandomEnumGenerator(Gender.class);
         this.gender = (Gender) reg.randomEnum();;
         //this.gender = getRandomGender();
         this.isReproduce = false;
     }
+
 
     public Gender getGender() {
         return gender;
@@ -57,6 +60,7 @@ public abstract class Animal {
     }
 
     public abstract boolean reproduce(Area area);
+    //public abstract Animal createAnimal(Species species);
 
     // используется в eatAnimal()
     // метод переопределяется в классах тех животных, которые способны есть других животных
@@ -64,7 +68,7 @@ public abstract class Animal {
         return Collections.emptyMap();
     }
 
-    // животные начинают есть
+    // животные начинают есть либо животных, либо растения
     public void eat(List<?> objects, Area area) {
         area.getLock().lock();
         try {
@@ -83,13 +87,14 @@ public abstract class Animal {
     }
 
     // перемещение животного из одной локации в соседнюю, если возможно
-    // в новую локацию загоняем this.животное
+    // в новую локацию загоняем this.животное и удаляем его из текущего списка
     public boolean move(Area currentArea, Area[][] areas) {
         currentArea.getLock().lock();
         try {
             Area newArea = null;
             int tries = 0;
             while (tries < 4) {
+                //
                 newArea = changeArea(currentArea, areas);
                 if (newArea != null) {
                     break;
@@ -97,6 +102,7 @@ public abstract class Animal {
                 tries++;
             }
             if (newArea != null && newArea != currentArea) {
+                // в новой локации добавляем животное
                 newArea.addAnimal(this);
                 return true;
 
@@ -119,6 +125,8 @@ public abstract class Animal {
         }
     }
 
+    // используетс я при подсчете популяции животных в локации и
+    // при подборе пары для размножения
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -138,7 +146,8 @@ public abstract class Animal {
         return this.getPresetData().maxSatiety();
     }
 
-    // добавили животному кол-во съеденного растения, само растение исчезло
+    // добавили животному кол-во съеденного растения * вес растения, пока не насытится
+    // сами растения исчезают
     protected void eatPlant(List<Plant> plants) {
         Iterator<Plant> iterator = plants.iterator();
         while (iterator.hasNext()) {
@@ -174,7 +183,8 @@ public abstract class Animal {
         return this.getClass().getAnnotation(PresetData.class);
     }
 
-    // перемещение животного из одной локации в соседние
+    // Проверяем, а возможно перемещение животного из одной локации в соседние,
+    // Если новая локация внутри острова и не будет перенаселения, то будем двигать животное
     private Area changeArea(Area currentArea, Area[][] areas) {
         int previousPositionX = currentArea.getPosition().getX();
         int previousPositionY = currentArea.getPosition().getY();
@@ -190,6 +200,7 @@ public abstract class Animal {
             return null;
         }
         Area newArea = areas[newPositionX][newPositionY];
+        // Проверка на перенаселение вида в локации
         if (!isAreaFree(newArea)) {
             return null;
         }
@@ -216,6 +227,7 @@ public abstract class Animal {
         return nextPositionY;
     }
 
+    // Проверка что не будет перенаселения в новой локации
     private boolean isAreaFree(Area area) {
         if (this instanceof Herbivorous) {
             List<Herbivorous> herbivorous = area.getHerbivorous();
@@ -225,12 +237,16 @@ public abstract class Animal {
             List<Carnivorous> carnivorous = area.getCarnivorous();
             int nextAreaCarnivorousPopulation = (int) carnivorous.stream().filter(this::equals).count();
             return nextAreaCarnivorousPopulation < getMaxAreaPopulation();
+        } else if (this instanceof Amphibian) {
+            List<Amphibian> amphibian = area.getAmphibian();
+            int nextAreaAmphibianPopulation = (int) amphibian.stream().filter(this::equals).count();
+            return nextAreaAmphibianPopulation < getMaxAreaPopulation();
         } else {
             return false;
         }
     }
 
-    // проверка, что координаты nextPositionX, nextPositionY внутри острова
+    // Проверка, что координаты nextPositionX, nextPositionY внутри острова
     private boolean isAreaExist(int nextPositionX, int nextPositionY, int islandLength, int islandWidth) {
         return nextPositionX <= islandLength - 1 && nextPositionY <= islandWidth - 1 && nextPositionX >= 0 && nextPositionY >= 0;
     }
@@ -249,7 +265,9 @@ public abstract class Animal {
         return steps;
     }
 
-    // поедание животных
+    // животные поедают животных
+    // животному добавляется вес сьеденного животного, но не больше необходимого кол-ва для насыщения
+    // животное, которое съели удаляется из списка
     private void eatAnimal(List<? extends Animal> animals) {
         Iterator<? extends Animal> iterator = animals.iterator();
         while (iterator.hasNext()) {

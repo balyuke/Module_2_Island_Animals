@@ -1,6 +1,7 @@
 package com.javarush.baliuk.islandofanimals.animals.carnivorous;
 
 import com.javarush.baliuk.islandofanimals.animals.Animal;
+import com.javarush.baliuk.islandofanimals.animals.amphibian.Frog;
 import com.javarush.baliuk.islandofanimals.settings.PresetData;
 import com.javarush.baliuk.islandofanimals.animals.herbivorous.*;
 
@@ -14,8 +15,11 @@ public class Boa extends Carnivorous {
                     , Rabbit.class, 20
                     , Mouse.class, 40
                     , Duck.class, 10
+
+                    , Frog.class, 40
             );
 
+    // Одно из условий проекта: 3. В классах травоядного и хищника можно реализовать метод покушать. Но обрати внимание, есть травоядное утка, которое ест гусеницу.
     @Override
     public Map<Class<? extends Animal>, Integer> getChanceToEat() {
         return CHANCE_TO_EAT;

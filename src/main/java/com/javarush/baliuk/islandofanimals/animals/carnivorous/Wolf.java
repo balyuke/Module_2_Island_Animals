@@ -21,6 +21,7 @@ public class Wolf extends Carnivorous {
                     , Duck.class, 40
             );
 
+    // Одно из условий проекта: 3. В классах травоядного и хищника можно реализовать метод покушать. Но обрати внимание, есть травоядное утка, которое ест гусеницу.
     @Override
     public Map<Class<? extends Animal>, Integer> getChanceToEat() {
         return CHANCE_TO_EAT;

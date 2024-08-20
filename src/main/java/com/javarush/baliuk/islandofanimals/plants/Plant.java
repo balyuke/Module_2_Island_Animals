@@ -11,10 +11,6 @@ import java.util.Objects;
 public class Plant {
     private static final Logger LOG = LoggerFactory.getLogger(Plant.class);
 
-    public Plant create() {
-        return new Plant();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

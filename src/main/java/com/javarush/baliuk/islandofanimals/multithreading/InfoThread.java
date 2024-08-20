@@ -3,6 +3,7 @@ package com.javarush.baliuk.islandofanimals.multithreading;
 import com.javarush.baliuk.islandofanimals.animals.Species;
 import com.javarush.baliuk.islandofanimals.animals.herbivorous.Herbivorous;
 import com.javarush.baliuk.islandofanimals.animals.carnivorous.Carnivorous;
+import com.javarush.baliuk.islandofanimals.animals.amphibian.Amphibian;
 import com.javarush.baliuk.islandofanimals.island.Island;
 import com.javarush.baliuk.islandofanimals.island.Area;
 import org.slf4j.Logger;
@@ -58,6 +59,8 @@ public class InfoThread implements Runnable, AutoCloseable  {
                 printCountCarnivorous(area);
                 LOG.trace(" - Herbivorous:");
                 printCountHerbivorous(area);
+                LOG.trace(" - Amphibian:");
+                printCountAmphibian(area);
                 plantCount = plantCount + area.getPlants().size();
                 LOG.trace(" - Plants : {}", area.getPlants().size());
             }
@@ -65,6 +68,7 @@ public class InfoThread implements Runnable, AutoCloseable  {
         LOG.info("Plants in total: {}", plantCount);
         LOG.info("Carnivorous population: {}", island.getCarnivorousPopulation());
         LOG.info("Herbivorous population: {}", island.getHerbivorousPopulation());
+        LOG.info("Amphibian population: {}", island.getAmphibianPopulation());
         LOG.info("Animals in total: {}", island.getAnimalsPopulation());
         LOG.info("Iteration={}", iteration);
         LOG.info("***********************************************");
@@ -86,6 +90,16 @@ public class InfoThread implements Runnable, AutoCloseable  {
             int carnivorousNumber = (int) carnivorous.stream().filter(c -> c.toString().equalsIgnoreCase(species.toString())).count();
             if (carnivorousNumber > 0) {
                 LOG.trace("   - {} : {}", species, carnivorousNumber);
+            }
+        }
+    }
+
+    private void printCountAmphibian(Area area) {
+        for (Species species : Species.values()) {
+            List<Amphibian> amphibian = new ArrayList<>(area.getAmphibian());
+            int amphibiaNumber = (int) amphibian.stream().filter(a -> a.toString().equalsIgnoreCase(species.toString())).count();
+            if (amphibiaNumber > 0) {
+                LOG.trace("   - {} : {}", species, amphibiaNumber);
             }
         }
     }

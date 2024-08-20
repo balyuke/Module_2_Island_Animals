@@ -1,7 +1,5 @@
 package com.javarush.baliuk.islandofanimals.island;
 
-import java.util.Arrays;
-
 // класс Остров
 public class Island {
     private final int length;       // длина острова
@@ -53,9 +51,20 @@ public class Island {
         return number;
     }
 
+    // популяция земноводных
+    public int getAmphibianPopulation() {
+        int number = 0;
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < width; j++) {
+                number += areas[i][j].getAmphibian().size();
+            }
+        }
+        return number;
+    }
+
     // Популяция всех животных. Если 0, то игра закончена
     public int getAnimalsPopulation() {
-        return getCarnivorousPopulation() + getHerbivorousPopulation();
+        return getCarnivorousPopulation() + getHerbivorousPopulation() + getAmphibianPopulation();
     }
 }
 

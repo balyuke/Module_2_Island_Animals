@@ -68,4 +68,9 @@
     "name_rus": "Растения",
     "icon": "\uD83C\uDF3F"
   }
+
+  ,"Frog": {
+    "name_rus": "Лягушка",
+    "icon": "FROG"
+  }
 }

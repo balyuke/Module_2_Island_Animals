@@ -18,4 +18,6 @@ public enum Species {
     MOUSE,
     RABBIT,
     SHEEP
+
+    ,FROG
 }
