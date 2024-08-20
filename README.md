@@ -66,6 +66,7 @@ Island of animals
 
 1) Сделаны все типы животных (иерархия животных ООП).\
 Общим для всех живых организмов, кроме травы является абстрактный класс Animal. Его наследуют классы Carnivorous плотоядные и Herbivorous травоядные.
+Для экспериментов добавлен класс Amphibian зенмноводные.
 Названия животных перечислены в перечислении Species.
 Заданные характеристики животных\существ\травы
 - вес одного растения\животного                                           weight,
@@ -75,30 +76,34 @@ Island of animals
 описаны в аннотации PresetData, которая используется в соответствующих классах через механизм через Reflection API.
 Параметры (размеры острова, задержки и т.п.) задаются в классе Params.
 
-2) Действия животных (питание, размножение, перемещение и умирание) атомарны (берется лок на область острова\ячейку для каждого действия из четырех);
+2) Действия животных (питание, размножение, перемещение и умирание) атомарны. Берется лок на область острова\локация для каждого действия из четырех;
 
-2.1. Питание: Хищники + Кабан,Утка,Мышь отличаются от прочих травоядных переопределенным методом getChanceToEat().
-Так же у каждого хищника свой метод chanceOfEat(), определяющий через switch вкусовые предпочтения. Утка ест и растения и гусеницу (переопреден eat()).
+- Питание:\
+Хищники + Кабан,Утка,Мышь отличаются от прочих травоядных переопределенным методом getChanceToEat(). Так же у каждого хищника свой метод chanceOfEat(), определяющий через switch вкусовые предпочтения.
+Утка ест и растения и гусеницу (переопреден eat()).
 
-2.2. Размножение: У животных есть пол, который задается через Random() в конструкторе. Каждая самка в ячейке произведет потомство, если в ячейке есть хотя бы один самец её вида.
+- Размножение:\
+У животных есть пол, который задается через Random() в конструкторе. Каждая самка в ячейке произведет потомство, если в ячейке есть хотя бы один самец её вида.
 Потомство добавляется в ту же ячейку.
 
-2.3. Перемещение: Направление и скорость движения выбираются через Random().
-Если выбранные параметры перемещения невозможны (слишком много животных в новой ячейке, остров закончился), движения не происходит (удаление\добавление животных из соотвествующих списков областей).
+- Перемещение:\
+Направление и скорость движения выбираются через Random().
+Допустимо только 4 возможных направления\маршрута (вверх, вниз, влево и вправо). По диагонали и другим зигзагами животное не перемещается.
+Если при выбранных параметрах направленя перемещение невозможны (в новой ячейке уже максимально допустимое количество животных или остров закончился), движения не происходит и освуществляется проверка следующего маршрута.
+Если движение возможно, то происходит удаление\добавление животных из соотвествующих списков старой и новой областей.
 
-2.4. Умирание:\
-2.4.1. Растения умирают, когда их вес меньше или равен нулю (их съели). Убыток веса растения равен голоду травоядного\
-2.4.2. Животные умирают от голода (при движении тратится 10% сытости) или, если их съели.
-Если сытость хищника меньше максимального значения, он убивает жертву любого размера (жертва гибнет вне зависимости от соотношений веса жертвы и сытости хищника).
-Животные умирают от голода (при движении тратится 10% сытости) или, если их съели.
+- Умирание:
+1. Растения умирают, когда их съели
+2. Животные умирают от голода или если их съели. Если сытость хищника меньше максимального значения, он убивает жертву любого размера
+(жертва гибнет вне зависимости от соотношений веса жертвы и сытости хищника). На каждой итерации тратится 10% сытости.
 
 3) Многопоточность: Созданы потоки-классы\
-3.1. Для развития локаций AreaThread: животные питаются eat(), размножаются reproduce(), двигаются move(), умирают due()\
-3.2. Для выращивания травы PlantThread - метод grow()\
-3.3. Для вывода Статистики InfoThread - метод infoStat()
+- Для развития локаций AreaThread: животные питаются eat(), размножаются reproduce(), двигаются move(), умирают due()
+- Для выращивания травы PlantThread - метод grow()
+- Для вывода Статистики InfoThread - метод infoStat()
 
 4) Вывод (статистика)\
-4.1. Консольный вывод: каждая ячейка поля выводится в табличной форме с помощью разделителей, в ячейке указано
+1. Консольный вывод: каждая ячейка поля выводится в табличной форме с помощью разделителей, в ячейке указано
 максимальное количество существ каждого подвида (растения, хищники, травоядные соответственно),
 в начале идет общая статистика по растениям и животным, а в конце указывается такт\итерация симуляции.
 <pre>
@@ -106,31 +111,34 @@ Island of animals
     Plants in total: 40000
     Carnivorous population: 1
     Herbivorous population: 0
+    Amphibian population: 0  
     Animals in total: 1
     Iteration=38
     ***********************************************
 </pre>
 
-4.2. Более развернутая информация по популяции каждого вида животного в разрезе каждой локации пишется в лог-файл
+2. Более развернутая информация по популяции каждого вида животного в разрезе каждой локации пишется в лог-файл
 <pre>
-    2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main: Area [1, 4]
-    2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  - Carnivorous:
-    2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:    - BEAR : 3
-    2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:    - BOA : 36
-    2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:    - EAGLE : 20
-    2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:    - FOX : 1
-    2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:    - WOLF : 28
-    2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:  - Herbivorous:
-    2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:    - BOAR : 50
-    2024-08-17 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.Main:    - BUFFALO : 6
-    2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:    - DEER : 18
-    2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:    - DUCK : 131
-    2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:    - GOAT : 87
-    2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:    - HORSE : 19
-    2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:    - MOUSE : 257
-    2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:    - RABBIT : 150
-    2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:    - SHEEP : 113
-    2024-08-17 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.Main:  - Plants : 567
+    2024-08-20 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread: Area [1, 4]
+    2024-08-20 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:  - Carnivorous:
+    2024-08-20 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - BEAR : 3
+    2024-08-20 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - BOA : 36
+    2024-08-20 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - EAGLE : 20
+    2024-08-20 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - FOX : 1
+    2024-08-20 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - WOLF : 28
+    2024-08-20 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:  - Herbivorous:
+    2024-08-20 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - BOAR : 50
+    2024-08-20 12:21:01,502 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - BUFFALO : 6
+    2024-08-20 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - DEER : 18
+    2024-08-20 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - DUCK : 131
+    2024-08-20 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - GOAT : 87
+    2024-08-20 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - HORSE : 19
+    2024-08-20 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - MOUSE : 257
+    2024-08-20 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - RABBIT : 150
+    2024-08-20 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - SHEEP : 113
+    2024-08-20 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:  - Amphibian:
+    2024-08-20 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:    - FROG : 659
+    2024-08-20 12:21:01,503 TRACE com.javarush.baliuk.islandofanimals.multithreading.InfoThread:  - Plants : 567
 </pre>
 
 ## TODO List
