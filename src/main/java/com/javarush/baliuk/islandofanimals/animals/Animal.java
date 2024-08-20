@@ -141,13 +141,8 @@ public abstract class Animal {
 //    // возвращаем рандомно пол животного
 //    protected Gender getRandomGender() { return Gender.values()[ThreadLocalRandom.current().nextInt(Gender.values().length)]; }
 
-    // считываем значение MaxSatiety() для соответствующего животного
-    protected double getMaxSatiety() {
-        return this.getPresetData().maxSatiety();
-    }
-
-    // добавили животному кол-во съеденного растения * вес растения, пока не насытится
-    // сами растения исчезают
+    // добавляем животному кол-во съеденного растения, пока не насытится
+    // сами растения умирают
     protected void eatPlant(List<Plant> plants) {
         Iterator<Plant> iterator = plants.iterator();
         while (iterator.hasNext()) {
@@ -160,21 +155,27 @@ public abstract class Animal {
         }
     }
 
-    // считываем значение weight() для соответствующего животного
+    // считываем значение MaxSatiety() сколько килограммов пищи нужно животному для полного насыщенияо
+    protected double getMaxSatiety() {
+        return this.getPresetData().maxSatiety();
+    }
+
+    // считываем значение weight() вес одного растения\животного
     private double getWeight() {
         return this.getPresetData().weight();
     }
 
+    // считываем значение maxAreaPopulation() максимальное количество растений\животных этого вида на одной клетке
     private int getMaxAreaPopulation() {
         return this.getPresetData().maxAreaPopulation();
     }
 
-    // считываем значение speed() для соответствующего животного
+    // считываем значение speed() скорость перемещения
     private int getSpeed() {
         return this.getPresetData().speed();
     }
 
-    //
+    // Рефлексия
     private PresetData getPresetData() {
         if (!this.getClass().isAnnotationPresent(PresetData.class)) {
             LOG.error("No such annotation {} for {}", PresetData.class, this.getClass().getName());

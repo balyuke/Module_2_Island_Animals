@@ -6,12 +6,11 @@ import com.javarush.baliuk.islandofanimals.island.Area;
 import com.javarush.baliuk.islandofanimals.multithreading.InfoThread;
 import com.javarush.baliuk.islandofanimals.multithreading.PlantThread;
 
-//import java.util.logging.Logger;
+import com.javarush.baliuk.islandofanimals.settings.Params;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.javarush.baliuk.islandofanimals.settings.Params.*;
 
 public class ConsoleRunner {
 
@@ -22,13 +21,15 @@ public class ConsoleRunner {
 
     public static void main(String[] args) throws InterruptedException  {
 
-        island = new Island(LENGTH, WIDTH);
+        island = new Island(Params.LENGTH, Params.WIDTH);
         island.init();
         areas = island.getAreas();
 
-        AreaThread[][] areaThreads = new AreaThread[LENGTH][WIDTH];
-        PlantThread[][] plantThreads = new PlantThread[LENGTH][WIDTH];
-        InfoThread infoThread = new InfoThread(island, ITERATION);
+
+
+        AreaThread[][] areaThreads = new AreaThread[Params.LENGTH][Params.WIDTH];
+        PlantThread[][] plantThreads = new PlantThread[Params.LENGTH][Params.WIDTH];
+        InfoThread infoThread = new InfoThread(island, Params.ITERATION);
 
         for (int i = 0; i < areas.length; i++) {
             for (int j = 0; j < areas[i].length; j++) {
@@ -52,13 +53,13 @@ public class ConsoleRunner {
             infoThread.run();
 
             try {
-                Thread.sleep(DELAY_SEC);
+                Thread.sleep(Params.DELAY_SEC);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
             }
-            if (island.getAnimalsPopulation() == 0 || infoThread.getCurrentIteration() > MAX_ITERATION) {
+            if (island.getAnimalsPopulation() == 0 || infoThread.getCurrentIteration() > Params.MAX_ITERATION) {
                 infoThread.printEndGame();
                 break;
             }

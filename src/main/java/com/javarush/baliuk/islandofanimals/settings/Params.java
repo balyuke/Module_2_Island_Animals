@@ -1,6 +1,7 @@
 package com.javarush.baliuk.islandofanimals.settings;
 
-public class Params {
+public final class Params {
+
     public static final int LENGTH = 10; //10;
     public static final int WIDTH = 20;  //20;
 
@@ -21,5 +22,17 @@ public class Params {
     public static final int PLANT_DELAY = 3;
 
     public static final int MAX_ITERATION = 50;
+
+    private static final Params INSTANCE = new Params();
+
+    private Params() {
+        if (INSTANCE != null) {
+            throw new IllegalStateException("Already instantiated");
+        }
+    }
+
+    public static Params getInstance() {
+        return INSTANCE;
+    }
 
 }
